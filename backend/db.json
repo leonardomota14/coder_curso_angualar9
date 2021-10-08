@@ -34,6 +34,11 @@
       "name": "novo produto",
       "price": "222",
       "id": 8
+    },
+    {
+      "name": "notebook gamer Lenovo",
+      "price": "6000.00",
+      "id": 10
     }
   ]
 }

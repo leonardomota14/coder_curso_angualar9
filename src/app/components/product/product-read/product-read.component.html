@@ -1,5 +1,5 @@
 <div class="mat-elevation-z4">
-  <table mat-table [dataSource]="products" aria-label="Elements">
+  <table mat-table matSort aria-label="Elements">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -38,4 +38,12 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data?.length"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
 </div>

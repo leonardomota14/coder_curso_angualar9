@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-delete.component.css']
 })
 export class ProductDeleteComponent implements OnInit {
-  product: Product = { name: '' };
+  product: Product = { name: '', price: 0.0 };
   id = String(this.route.snapshot.paramMap.get('id'))
 
   constructor( 
