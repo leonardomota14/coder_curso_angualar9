@@ -30,11 +30,19 @@ export class ProductService {
     )
   }
 
-  read(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl).pipe(
-      map(obj => obj),
-      catchError(e => this.errorHandler(e))
-    )
+  read(paginator = { page: 1, size: 2 }): Observable<{total: number, data: Product[]}> {
+    const params = {
+      _page: paginator.page,
+      _limit: paginator.size
+    };
+
+    return this.http.get<{total: number, data: Product[]}>(this.baseUrl, { params, observe: 'response'})
+      .pipe(
+        map(res => {
+          return { total: res.headers.get('X-Total-Count'), data: res.body };
+        }),
+        catchError(e => this.errorHandler(e))
+      )
   }
 
   readByid(id: String): Observable<Product> {
@@ -62,7 +70,7 @@ export class ProductService {
   }
 
   errorHandler(e: any): Observable<any> {
-    console.log('error ->', e);    
+    console.log('error ->', e);
     this.showMessage('Ocorreu um erro!', true);
     return EMPTY;
   }

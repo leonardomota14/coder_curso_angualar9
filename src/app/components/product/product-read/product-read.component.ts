@@ -11,13 +11,30 @@ export class ProductReadComponent implements OnInit {
 
   products: Product[] = [];
   displayedColumns = ['id', 'name', 'price', 'action'];
-
+  paginator = {
+    page: 1,
+    size: 2,
+    length: 0
+  }
   constructor( private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService.read().subscribe(prods => {
-      this.products = prods
+    this.loadItems();
+  }
+
+  private loadItems() {
+    this.productService.read(this.paginator)
+    .subscribe(prods => {
+      this.paginator.length = prods.total
+      this.products = prods.data;
     })
+  }
+
+  changePage(event: any) {
+    this.paginator.page = event.pageIndex+1;
+    this.paginator.size = event.pageSize;
+
+    this.loadItems();
   }
 
 }
