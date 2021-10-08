@@ -13,7 +13,7 @@ export class ProductReadComponent implements OnInit {
   displayedColumns = ['id', 'name', 'price', 'action'];
   paginator = {
     page: 1,
-    size: 2,
+    size: 5,
     length: 0
   }
   constructor( private productService: ProductService) {}
